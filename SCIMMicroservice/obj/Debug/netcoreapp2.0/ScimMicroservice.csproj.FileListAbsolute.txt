@@ -1,0 +1,11 @@
+C:\Work\Clients\Patrick\SCIMMicroserviceRanga\SCIMMicroservice\bin\Debug\netcoreapp2.0\ScimMicroservice.deps.json
+C:\Work\Clients\Patrick\SCIMMicroserviceRanga\SCIMMicroservice\bin\Debug\netcoreapp2.0\ScimMicroservice.runtimeconfig.json
+C:\Work\Clients\Patrick\SCIMMicroserviceRanga\SCIMMicroservice\bin\Debug\netcoreapp2.0\ScimMicroservice.runtimeconfig.dev.json
+C:\Work\Clients\Patrick\SCIMMicroserviceRanga\SCIMMicroservice\bin\Debug\netcoreapp2.0\ScimMicroservice.dll
+C:\Work\Clients\Patrick\SCIMMicroserviceRanga\SCIMMicroservice\bin\Debug\netcoreapp2.0\ScimMicroservice.pdb
+C:\Work\Clients\Patrick\SCIMMicroserviceRanga\SCIMMicroservice\obj\Debug\netcoreapp2.0\ScimMicroservice.csproj.CoreCompileInputs.cache
+C:\Work\Clients\Patrick\SCIMMicroserviceRanga\SCIMMicroservice\obj\Debug\netcoreapp2.0\ScimMicroservice.AssemblyInfoInputs.cache
+C:\Work\Clients\Patrick\SCIMMicroserviceRanga\SCIMMicroservice\obj\Debug\netcoreapp2.0\ScimMicroservice.AssemblyInfo.cs
+C:\Work\Clients\Patrick\SCIMMicroserviceRanga\SCIMMicroservice\obj\Debug\netcoreapp2.0\ScimMicroservice.dll
+C:\Work\Clients\Patrick\SCIMMicroserviceRanga\SCIMMicroservice\obj\Debug\netcoreapp2.0\ScimMicroservice.pdb
+C:\Work\Clients\Patrick\SCIMMicroserviceRanga\SCIMMicroservice\obj\Debug\netcoreapp2.0\ScimMicroservice.csprojResolveAssemblyReference.cache
