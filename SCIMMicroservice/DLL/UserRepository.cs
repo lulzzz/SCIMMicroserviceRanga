@@ -19,6 +19,16 @@ namespace ScimMicroservice.DLL.Interfaces
             this.dbContext = dbContext;
         }
 
+        public async Task<bool> AuthenticateUser(string userName, string password)
+        {
+            var user = dbContext
+                .Users
+                .FirstOrDefault(u => u.Username.Equals(userName)
+                && u.Password.Equals(password));
+
+            return user != null;
+        }
+
         /// <summary>
         /// Persists the specified <paramref name="user"/>.
         /// </summary>
@@ -181,7 +191,7 @@ namespace ScimMicroservice.DLL.Interfaces
 
             return true;
         }
-
+        
         private void SetName(User user, Name name)
         {
             if (user.Name != null && !string.IsNullOrWhiteSpace(user.Name.GivenName))

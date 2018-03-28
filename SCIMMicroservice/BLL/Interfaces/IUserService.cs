@@ -28,6 +28,14 @@ namespace ScimMicroservice.BLL.Interfaces
         Task<ScimUser> GetUser(int userId);
 
         /// <summary>
+        /// Authenticate user using username and password
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        Task<bool> AuthenticateUser(ScimLogin loginModel);
+
+        /// <summary>
         /// Create user
         /// </summary>
         /// <param name="user">User user</param>

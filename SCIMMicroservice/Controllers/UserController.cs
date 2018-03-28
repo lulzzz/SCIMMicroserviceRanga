@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.JsonPatch;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using ScimMicroservice.BLL.Interfaces;
@@ -65,6 +66,7 @@ namespace ScimMicroservice.Controllers
         /// </summary>
         /// <param name="userDto"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] ScimUser userDto)
         {
@@ -79,6 +81,7 @@ namespace ScimMicroservice.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> Get()
         {
@@ -107,6 +110,7 @@ namespace ScimMicroservice.Controllers
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpGet("{userId}")]
         public async Task<IActionResult> Get(int userId)
         {
@@ -141,6 +145,7 @@ namespace ScimMicroservice.Controllers
         /// </summary>
         /// <param name="userId">int userId</param>
         /// <returns></returns>
+        [Authorize]
         [HttpDelete("{userId}")]
         public async Task<IActionResult> Delete(int userId)
         {
@@ -175,6 +180,7 @@ namespace ScimMicroservice.Controllers
         /// <param name="userId">int userId</param>
         /// <param name="userDto">ScimUser userDto</param>
         /// <returns></returns>
+        [Authorize]
         [HttpPut("{userId}")]
         public async Task<IActionResult> Put(int userId, [FromBody] ScimUser userDto)
         {
@@ -223,8 +229,9 @@ namespace ScimMicroservice.Controllers
         /// <param name="userId">int userId</param>
         /// <param name="patches">JsonPatchDocument<ScimUser> patches</param>
         /// <returns></returns>
+        [Authorize]
         [HttpPatch("{userId}")]
-        public async Task<IActionResult> Patch(int userId, [FromBody] JsonPatchDocument<ScimUser> patches)
+        public async Task<IActionResult> Patch(int userId, [FromBody]JsonPatchDocument<ScimUser> patches)
         {
             try
             {

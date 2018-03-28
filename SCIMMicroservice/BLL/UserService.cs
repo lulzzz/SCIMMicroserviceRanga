@@ -20,6 +20,14 @@ namespace ScimMicroservice.BLL
             this.repository = repository;
         }
 
+        public async Task<bool> AuthenticateUser(ScimLogin loginModel)
+        {
+            return await repository
+                .AuthenticateUser(
+                loginModel.UserName,
+                loginModel.Password);
+        }
+
         public async Task<ScimUser> CreateUser(ScimUser user)
         {
             var usr = mapper.Map<ScimUser, User>(user);

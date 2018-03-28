@@ -20,7 +20,9 @@ namespace ScimMicroservice.DLL.Models
         public int MetaId { get; set; }
 
         public string Username { get; set; }
-       
+
+        public string Password { get; set; }
+
         public string ExternalId { get; set; }
 
         public bool? Active { get; set; }

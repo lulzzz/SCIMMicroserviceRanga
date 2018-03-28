@@ -1,14 +1,17 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using ScimMicroservice.BLL;
 using ScimMicroservice.BLL.Interfaces;
 using ScimMicroservice.DLL;
 using ScimMicroservice.DLL.Interfaces;
+using System.Text;
 
 namespace ScimMicroservice
 {
@@ -33,6 +36,20 @@ namespace ScimMicroservice
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IUserService, UserService>();
 
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+               .AddJwtBearer(jwtBearerOptions =>
+               {
+                   jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters()
+                   {
+                       ValidateActor = true,
+                       ValidateAudience = true,
+                       ValidateLifetime = true,
+                       ValidateIssuerSigningKey = true,
+                       ValidIssuer = Configuration["Issuer"],
+                       ValidAudience = Configuration["Audience"],
+                       IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["SigningKey"]))
+                   };
+               });
 
             // Enable versioning and fall back to default when unspecified.
             //services.AddApiVersioning(options =>
@@ -55,6 +72,7 @@ namespace ScimMicroservice
             }
 
             app.UseETagger();
+            app.UseAuthentication();
             app.UseMvc();
         }
 

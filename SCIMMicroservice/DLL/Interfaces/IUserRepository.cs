@@ -72,6 +72,14 @@ namespace ScimMicroservice.DLL
         /// <param name="userId">The user identifier.</param>
         /// <returns>Task&lt;System.Boolean&gt;.</returns>
         Task<bool> UserExists(string userId);
+
+        /// <summary>
+        /// Authenticate user using username and password
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        Task<bool> AuthenticateUser(string userName, string password);
     }
 }
 
