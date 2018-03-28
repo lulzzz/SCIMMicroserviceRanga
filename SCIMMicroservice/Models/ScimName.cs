@@ -5,6 +5,9 @@ namespace ScimMicroservice.Models
 {
     public class ScimName
     {
+        [JsonProperty("id")]
+        public int Id { get; set; }
+
         [Description(@"
         The full name, including all middle
         names, titles, and suffixes as appropriate, formatted for display

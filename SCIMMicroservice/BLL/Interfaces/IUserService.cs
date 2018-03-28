@@ -39,5 +39,12 @@ namespace ScimMicroservice.BLL.Interfaces
         /// </summary>
         /// <param name="userId">int userId</param>
         Task Delete(int userId);
+
+        /// <summary>
+        /// Patch ScimUser
+        /// </summary>
+        /// <param name="user">ScimUser user</param>
+        /// <returns>ScimUser</returns>
+        Task<ScimUser> PatchUser(ScimUser user);
     }
 }

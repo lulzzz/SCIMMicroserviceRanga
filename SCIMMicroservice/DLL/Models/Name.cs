@@ -1,7 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ScimMicroservice.DLL.Models
 {
+    [Table("Name")]
     public class Name
     {
         [Key]

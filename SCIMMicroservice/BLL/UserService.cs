@@ -26,25 +26,33 @@ namespace ScimMicroservice.BLL
             return mapper.Map<User, ScimUser>(await repository.CreateUser(usr));
 
         }
-
         public async Task Delete(int userId)
         {
-            throw new NotImplementedException();
+            await repository.DeleteUser(userId);
         }
 
         public async Task<ScimUser> GetUser(int userId)
         {
-            throw new NotImplementedException();
+            var user = await repository.GetUser(userId);
+            return mapper.Map<User, ScimUser>(user);
         }
 
         public async Task<List<ScimUser>> GetUsers()
         {
-            throw new NotImplementedException();
+            var users = await repository.GetAllUsers();
+            return mapper.Map<List<User>, List<ScimUser>>(users);
+        }
+
+        public async Task<ScimUser> PatchUser(ScimUser user)
+        {
+            var usr = mapper.Map<ScimUser, User>(user);
+            return mapper.Map<User, ScimUser>(await repository.UpdateUser(usr));
         }
 
         public async Task<ScimUser> UpdateUser(ScimUser user)
         {
-            throw new NotImplementedException();
+            var usr = mapper.Map<ScimUser, User>(user);
+            return mapper.Map<User, ScimUser>(await repository.UpdateUser(usr));
         }
     }
 }

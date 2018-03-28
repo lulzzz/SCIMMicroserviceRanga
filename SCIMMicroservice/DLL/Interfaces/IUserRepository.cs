@@ -23,6 +23,12 @@ namespace ScimMicroservice.DLL
         Task<User> GetUser(int userId);
 
         /// <summary>
+        /// Gets the <see cref="ScimUser"/> resource associated with the specified <paramref name="userId"/>.
+        /// </summary>
+        /// <returns></returns>
+        Task<List<User>> GetAllUsers();
+
+        /// <summary>
         /// Updates the specified <paramref name="user"/> record.
         /// </summary>
         /// <param name="user"></param>

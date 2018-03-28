@@ -20,5 +20,10 @@ namespace ScimMicroservice.DLL
 
         public virtual DbSet<UserGroups> UserGroups { get; set; }
 
+        public virtual DbSet<Name> Names { get; set; }
+
+        public virtual DbSet<Meta> Meta { get; set; }
+
+        public virtual DbSet<Email> Emails { get; set; }
     }
 }

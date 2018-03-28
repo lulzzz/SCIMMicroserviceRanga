@@ -20,8 +20,8 @@ namespace ScimMicroservice.Models
             base.Meta = new ScimMeta(ResourceType.User);
         }
 
-        [JsonProperty("id")]
-        public new int Id { get; set; }
+        //[JsonProperty("id")]
+        //public int Id { get; set; }
 
         [JsonProperty("userName")]
         public string UserName { get; set; }

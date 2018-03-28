@@ -12,9 +12,10 @@ using System;
 namespace ScimMicroservice.Migrations
 {
     [DbContext(typeof(SCIMContext))]
-    partial class SCIMContextModelSnapshot : ModelSnapshot
+    [Migration("20180327152243_M6")]
+    partial class M6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

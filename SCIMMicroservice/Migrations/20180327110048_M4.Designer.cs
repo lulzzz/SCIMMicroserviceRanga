@@ -12,9 +12,10 @@ using System;
 namespace ScimMicroservice.Migrations
 {
     [DbContext(typeof(SCIMContext))]
-    partial class SCIMContextModelSnapshot : ModelSnapshot
+    [Migration("20180327110048_M4")]
+    partial class M4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,7 +39,7 @@ namespace ScimMicroservice.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Emails");
+                    b.ToTable("Email");
                 });
 
             modelBuilder.Entity("ScimMicroservice.DLL.Models.Group", b =>
@@ -156,15 +157,27 @@ namespace ScimMicroservice.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<bool?>("Active");
+                    b.Property<bool>("CanNotChangePassword");
+
+                    b.Property<bool>("Disabled");
+
+                    b.Property<DateTime>("ExpiresOn");
 
                     b.Property<string>("ExternalId");
+
+                    b.Property<bool>("Locked");
 
                     b.Property<int?>("MailingAddressId");
 
                     b.Property<int>("MetaId");
 
+                    b.Property<bool>("MustChangePasswordAtNextLogin");
+
                     b.Property<int>("NameId");
+
+                    b.Property<DateTime>("PasswordExpiresOn");
+
+                    b.Property<bool>("PasswordNeverExpires");
 
                     b.Property<string>("Username");
 

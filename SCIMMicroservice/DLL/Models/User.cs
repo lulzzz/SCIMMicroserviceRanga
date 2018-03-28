@@ -1,5 +1,4 @@
-﻿using ScimMicroservice.DLL.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace ScimMicroservice.DLL.Models
@@ -16,36 +15,24 @@ namespace ScimMicroservice.DLL.Models
 
         public int Id { get; set; }
 
+        public int NameId { get; set; }
+
+        public int MetaId { get; set; }
+
         public string Username { get; set; }
-
-        public Name Name { get; set; }
-
-        public List<Email> Emails { get; set; }
-
-        public List<PhoneNumber> PhoneNumbers { get; set; }
-
+       
         public string ExternalId { get; set; }
 
-        public bool Disabled { get; set; }
+        public bool? Active { get; set; }
 
-        public bool Locked { get; set; }
+        public virtual Meta Meta { get; set; }
 
-        public DateTime ExpiresOn { get; set; }
+        public virtual MailingAddress MailingAddress { get;set;}
 
-        public bool PasswordNeverExpires { get; set; }
+        public virtual Name Name { get; set; }
 
-        public bool CanNotChangePassword { get; set; }
+        public virtual List<Email> Emails { get; set; }
 
-        public bool MustChangePasswordAtNextLogin { get; set; }
-
-        public DateTime PasswordExpiresOn { get; set; }
-
-        public DateTime Created { get; set; }
-
-        public DateTime LastModified { get; set; }
-
-        public Meta Meta { get; set; }
-
-        public MailingAddress MailingAddress { get;set;}
+        public virtual List<PhoneNumber> PhoneNumbers { get; set; }
     }
 }

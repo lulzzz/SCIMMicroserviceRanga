@@ -12,9 +12,10 @@ using System;
 namespace ScimMicroservice.Migrations
 {
     [DbContext(typeof(SCIMContext))]
-    partial class SCIMContextModelSnapshot : ModelSnapshot
+    [Migration("20180327152024_M5")]
+    partial class M5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -156,7 +157,9 @@ namespace ScimMicroservice.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<bool?>("Active");
+                    b.Property<bool>("Active");
+
+                    b.Property<DateTime>("ExpiresOn");
 
                     b.Property<string>("ExternalId");
 

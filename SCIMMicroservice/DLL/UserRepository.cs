@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -66,6 +67,18 @@ namespace ScimMicroservice.DLL.Interfaces
         }
 
         /// <summary>
+        /// Get All users
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<User>> GetAllUsers()
+        {
+            return await dbContext
+                .Users
+                .ToAsyncEnumerable()
+                .ToList();
+        }
+
+        /// <summary>
         /// Gets the <see cref="ScimUser"/> resource associated with the specified <paramref name="userId"/>.
         /// </summary>
         /// <param name="userId"></param>
@@ -104,19 +117,52 @@ namespace ScimMicroservice.DLL.Interfaces
         /// <returns></returns>
         public async Task<User> UpdateUser(User user)
         {
-            var dbUser = await dbContext.Users.FindAsync(user.Id);
-
-            if (dbUser == null)
+            try
             {
-                throw new NotFoundException("User not found");
-            }
-            
-            dbUser = user;
-            dbUser.Meta.LastModified = DateTime.Now;
+                var dbUser = dbContext.Users.Find(user.Id);
 
-            dbContext.Update(dbUser);
-            await dbContext.SaveChangesAsync();
-            return dbUser;
+                if (dbUser == null)
+                {
+                    throw new NotFoundException("User not found");
+                }
+
+                var name = dbContext.Names.Find(dbUser.NameId);
+
+                SetName(user, name);
+
+                dbUser.Meta.LastModified = DateTime.Now;
+                dbUser.Meta.ResourceType = ResourceType.User;
+
+                if (user.Active.HasValue)
+                {
+                    dbUser.Active = user.Active;
+                }
+
+                if (user.Emails.Any())
+                {
+                    dbUser.Emails = user.Emails;
+                }
+
+                if(user.MailingAddress != null)
+                {
+                    dbUser.MailingAddress = user.MailingAddress;
+                }
+
+                dbUser.Name = user.Name;
+
+                if (user.PhoneNumbers != null && user.PhoneNumbers.Any())
+                {
+                    dbUser.PhoneNumbers = user.PhoneNumbers;
+                }
+
+                dbUser.Username = user.Username;
+                await dbContext.SaveChangesAsync();
+                return user;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
 
         /// <summary>
@@ -134,6 +180,30 @@ namespace ScimMicroservice.DLL.Interfaces
             }
 
             return true;
+        }
+
+        private void SetName(User user, Name name)
+        {
+            if (user.Name != null && !string.IsNullOrWhiteSpace(user.Name.GivenName))
+                name.GivenName = user.Name.GivenName;
+
+            if (user.Name != null && !string.IsNullOrWhiteSpace(user.Name.FamilyName))
+                name.FamilyName = user.Name.FamilyName;
+
+            if (user.Name != null && !string.IsNullOrWhiteSpace(user.Name.MiddleName))
+                name.MiddleName = user.Name.MiddleName;
+
+            if (user.Name != null && !string.IsNullOrWhiteSpace(user.Name.Formatted))
+                name.Formatted = user.Name.Formatted;
+
+            if (user.Name != null && !string.IsNullOrWhiteSpace(user.Name.HonorificPrefix))
+                name.HonorificPrefix = user.Name.HonorificPrefix;
+
+            if (user.Name != null && !string.IsNullOrWhiteSpace(user.Name.HonorificSuffix))
+                name.HonorificSuffix = user.Name.HonorificSuffix;
+
+            if (user.Name != null && !string.IsNullOrWhiteSpace(user.Name.MiddleName))
+                name.MiddleName = user.Name.MiddleName;
         }
     }
 }
