@@ -11,15 +11,17 @@ using ScimMicroservice.BLL;
 using ScimMicroservice.BLL.Interfaces;
 using ScimMicroservice.DLL;
 using ScimMicroservice.DLL.Interfaces;
+using Swashbuckle.AspNetCore.Swagger;
 using System.Text;
+//using Swashbuckle.AspNetCore.Swagger;
 
 namespace ScimMicroservice
 {
     public class Startup
     {
-        private const string ApiName = "scim";
-        private const int ApiVersionMajor = 0;
-        private const int ApiVersionMinor = 1;
+        private const string ApiName = "SCIM.API";
+        private const int ApiVersionMajor = 1;
+        private const int ApiVersionMinor = 0;
 
         public Startup(IConfiguration configuration)
         {
@@ -51,13 +53,20 @@ namespace ScimMicroservice
                    };
                });
 
-            // Enable versioning and fall back to default when unspecified.
-            //services.AddApiVersioning(options =>
-            //{
-            //    options.AssumeDefaultVersionWhenUnspecified = true;
-            //    options.DefaultApiVersion = new ApiVersion(ApiVersionMajor, ApiVersionMinor);
-            //});
+            services.AddApiVersioning();
 
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc(ApiName, new Info { Title = ApiName, Version = "1.0" });
+
+                c.AddSecurityDefinition("Bearer", new ApiKeyScheme
+                {
+                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+                    Name = "Authorization",
+                    In = "header",
+                    Type = "apiKey"
+                });
+            });
 
             services.AddAutoMapper();
             services.AddMvc();
@@ -69,6 +78,14 @@ namespace ScimMicroservice
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
+                app.UseSwagger();
+
+                // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/" + ApiName + "/swagger.json", GetAPIVersionAsString());
+                });
             }
 
             app.UseETagger();

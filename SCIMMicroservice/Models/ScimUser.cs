@@ -8,7 +8,7 @@ namespace ScimMicroservice.Models
 {
     public class ScimUser : ScimResource
     {
-        protected ScimUser()
+        protected ScimUser() : base(ResourceType.User)
         {
             /* 3.3.1.Resource Types
              * When adding a resource to a specific endpoint, the meta attribute
@@ -29,29 +29,29 @@ namespace ScimMicroservice.Models
         [JsonProperty("name")]
         public ScimName Name { get; set; }
 
-        [JsonProperty("displayName")]
-        public string DisplayName { get; set; }
+        //[JsonProperty("displayName")]
+        //public string DisplayName { get; set; }
 
-        [JsonProperty("nickName")]
-        public string NickName { get; set; }
+        //[JsonProperty("nickName")]
+        //public string NickName { get; set; }
 
-        [JsonProperty("profileUrl")]
-        public Uri ProfileUrl { get; set; }
+        //[JsonProperty("profileUrl")]
+        //public Uri ProfileUrl { get; set; }
 
-        [JsonProperty("title")]
-        public string Title { get; set; }
+        //[JsonProperty("title")]
+       // public string Title { get; set; }
 
-        [JsonProperty("userType")]
-        public string UserType { get; set; }
+        //[JsonProperty("userType")]
+        //public string UserType { get; set; }
 
-        [JsonProperty("preferredLanguage")]
-        public string PreferredLanguage { get; set; }
+        //[JsonProperty("preferredLanguage")]
+        //public string PreferredLanguage { get; set; }
 
-        [JsonProperty("locale")]
-        public string Locale { get; set; }
+        //[JsonProperty("locale")]
+       // public string Locale { get; set; }
 
-        [JsonProperty("timezone")]
-        public string Timezone { get; set; }
+        //[JsonProperty("timezone")]
+        //public string Timezone { get; set; }
 
         [JsonProperty("active")]
         public bool Active { get; set; }
@@ -74,17 +74,17 @@ namespace ScimMicroservice.Models
             {
                 Base = base.CalculateVersion(),
                 Active,
-                Locale,
+                //Locale,
                 Name = Name == null ? 0 : Name.CalculateVersion(),
-                NickName,
-                DisplayName,
+                //NickName,
+                //DisplayName,
                 Password,
-                PreferredLanguage,
-                ProfileUrl,
-                Timezone,
-                Title,
+                //PreferredLanguage,
+                //ProfileUrl,
+                //Timezone,
+                //Title,
                 UserName,
-                UserType,
+                //UserType,
                 Addresses = Addresses.GetMultiValuedAttributeCollectionVersion(),
                 Emails = Emails.GetMultiValuedAttributeCollectionVersion(),
                // Entitlements = Entitlements.GetMultiValuedAttributeCollectionVersion(),

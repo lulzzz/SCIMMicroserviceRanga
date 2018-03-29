@@ -1,28 +1,24 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using ScimMicroservice.BLL.Interfaces;
 using ScimMicroservice.Exceptions;
 using ScimMicroservice.Models;
 using System;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Security.Cryptography;
-using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ScimMicroservice.Controllers
 {
-    //[ApiVersion("0.1")]
+    [ApiVersion("1.0")]
     [Produces("application/json")]
-    [Route("api/[controller]s")]
-    public class UserController : Controller
+    [Route("api/v{version:apiVersion}/[controller]")]
+    public class UsersController : Controller
     {
         private IUserService userService;     
-        public const string RetrieveUserRouteName = @"User";
+        public const string RetrieveUserRouteName = @"Users";
 
-        public UserController(IUserService userService)
+        public UsersController(IUserService userService)
         {
             this.userService = userService;
         }
@@ -119,6 +115,10 @@ namespace ScimMicroservice.Controllers
                 var users = await userService.GetUser(userId);
                 AddLocationHeader("users", userId.ToString());
                 return Ok(users);
+            }
+            catch (NotFoundException e)
+            {
+                return NotFound(e.Message);
             }
             catch (Exception ex)
             {
@@ -231,13 +231,31 @@ namespace ScimMicroservice.Controllers
         /// <returns></returns>
         [Authorize]
         [HttpPatch("{userId}")]
-        public async Task<IActionResult> Patch(int userId, [FromBody]JsonPatchDocument<ScimUser> patches)
+        public async Task<IActionResult> Patch(int userId, [FromBody] PatchRequest<ScimUser> userPatch)
         {
             try
             {
+                if (!userPatch.Schemas.Any()
+                    || userPatch.Schemas[0] != ScimConstants.Messages.PatchOp)
+                {
+                    return BadRequest("Invalid schema");
+                }
+
+                var patches = new JsonPatchDocument<ScimUser>();
+
+                patches.Operations.AddRange(userPatch.Operations);
+
                 var user = await userService.GetUser(userId);
+
                 patches.ApplyTo(user);
+
                 var pachedUser = await userService.PatchUser(user);
+
+                foreach(var schema in pachedUser.Schemas)
+                {
+                    schema.Replace("ResourceType", "user");
+                }
+
                 AddLocationHeader("users", userId.ToString());
                 return Ok(pachedUser);
             }

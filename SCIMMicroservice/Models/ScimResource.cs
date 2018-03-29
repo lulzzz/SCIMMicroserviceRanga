@@ -5,18 +5,21 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using static ScimMicroservice.DLL.Models.Enums;
 
 namespace ScimMicroservice.Models
 {
     public class ScimResource : SchemaBase
     {
+        private ResourceType resourceType;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Resource"/> class.
         /// </summary>
-        protected ScimResource()
+        protected ScimResource(ResourceType resourceType)
         {
             Extensions = new ResourceExtensions();
+            this.resourceType = resourceType;
         }
 
         /// <summary>
@@ -75,7 +78,7 @@ namespace ScimMicroservice.Models
 
         public override string SchemaIdentifier
         {
-            get { return ScimConstants.Schemas.ResourceType; }
+            get { return ScimConstants.Schemas[resourceType]; }
         }
 
         /// <summary>

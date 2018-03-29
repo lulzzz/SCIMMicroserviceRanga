@@ -12,8 +12,9 @@ using System.Threading.Tasks;
 
 namespace ScimMicroservice.Controllers
 {
+    [ApiVersion("1.0")]
     [Produces("application/json")]
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class AuthenticatorController : Controller
     {
         private IConfiguration configuration;
