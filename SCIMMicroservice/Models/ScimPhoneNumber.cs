@@ -10,9 +10,9 @@ namespace ScimMicroservice.Models
         public int Id { get; set; }
 
         [JsonProperty("type")]
-        public PhoneNumberType Type { get; set; }
+        public PhoneNumberType PhoneNumberType { get; set; }
 
-        [JsonProperty("value")]
-        public string Value { get; set; }
+        //[JsonProperty("value")]
+        //public string Value { get; set; }
     }
 }

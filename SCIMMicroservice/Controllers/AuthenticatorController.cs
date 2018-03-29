@@ -31,13 +31,13 @@ namespace ScimMicroservice.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("token")]
-        public async Task<IActionResult> Post([FromBody]ScimLogin loginModel)
+        public IActionResult Post([FromBody]ScimLogin loginModel)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    var authenticated = await userService.AuthenticateUser(loginModel);
+                    var authenticated = userService.AuthenticateUser(loginModel);
 
                     if (!authenticated)
                     {

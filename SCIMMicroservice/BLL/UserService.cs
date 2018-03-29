@@ -20,9 +20,9 @@ namespace ScimMicroservice.BLL
             this.repository = repository;
         }
 
-        public async Task<bool> AuthenticateUser(ScimLogin loginModel)
+        public bool AuthenticateUser(ScimLogin loginModel)
         {
-            return await repository
+            return repository
                 .AuthenticateUser(
                 loginModel.UserName,
                 loginModel.Password);
@@ -49,12 +49,6 @@ namespace ScimMicroservice.BLL
         {
             var users = await repository.GetAllUsers();
             return mapper.Map<List<User>, List<ScimUser>>(users);
-        }
-
-        public async Task<ScimUser> PatchUser(ScimUser user)
-        {
-            var usr = mapper.Map<ScimUser, User>(user);
-            return mapper.Map<User, ScimUser>(await repository.UpdateUser(usr));
         }
 
         public async Task<ScimUser> UpdateUser(ScimUser user)

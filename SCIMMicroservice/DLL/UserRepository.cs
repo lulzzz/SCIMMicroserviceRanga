@@ -19,7 +19,7 @@ namespace ScimMicroservice.DLL.Interfaces
             this.dbContext = dbContext;
         }
 
-        public async Task<bool> AuthenticateUser(string userName, string password)
+        public bool AuthenticateUser(string userName, string password)
         {
             var user = dbContext
                 .Users
@@ -110,7 +110,7 @@ namespace ScimMicroservice.DLL.Interfaces
         /// </summary>
         /// <param name="userName"></param>
         /// <returns></returns>
-        public async Task<bool> IsUserNameAvailable(string userName)
+        public bool IsUserNameAvailable(string userName)
         {
             var userNameBytes = Encoding.UTF8.GetBytes(userName);
 

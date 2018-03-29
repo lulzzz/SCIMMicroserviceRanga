@@ -64,7 +64,7 @@ namespace ScimMicroservice.DLL
         /// </summary>
         /// <param name="userName"></param>
         /// <returns></returns>
-        Task<bool> IsUserNameAvailable(string userName);
+        bool IsUserNameAvailable(string userName);
 
         /// <summary>
         /// Determines whether a user with the specified <paramref name="userId"/> exists.
@@ -79,7 +79,7 @@ namespace ScimMicroservice.DLL
         /// <param name="userName"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        Task<bool> AuthenticateUser(string userName, string password);
+        bool AuthenticateUser(string userName, string password);
     }
 }
 

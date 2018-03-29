@@ -249,7 +249,7 @@ namespace ScimMicroservice.Controllers
 
                 patches.ApplyTo(user);
 
-                var pachedUser = await userService.PatchUser(user);
+                var pachedUser = await userService.UpdateUser(user);
 
                 foreach(var schema in pachedUser.Schemas)
                 {

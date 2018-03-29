@@ -10,12 +10,12 @@ namespace ScimMicroservice.Models
         public int Id { get; set; }
 
         [JsonProperty("type")]
-        public EmailType Type { get; set; }
+        public EmailType EmailType { get; set; }
 
-        [JsonProperty("primary")]
-        public bool Primary { get; set; }
+        //[JsonProperty("primary")]
+        //public bool Primary { get; set; }
 
-        [JsonProperty("value")]
-        public string Value { get; set; }
+        //[JsonProperty("value")]
+        //public string Value { get; set; }
     }
 }

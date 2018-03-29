@@ -33,7 +33,7 @@ namespace ScimMicroservice.BLL.Interfaces
         /// <param name="userName"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        Task<bool> AuthenticateUser(ScimLogin loginModel);
+        bool AuthenticateUser(ScimLogin loginModel);
 
         /// <summary>
         /// Create user
@@ -47,12 +47,5 @@ namespace ScimMicroservice.BLL.Interfaces
         /// </summary>
         /// <param name="userId">int userId</param>
         Task Delete(int userId);
-
-        /// <summary>
-        /// Patch ScimUser
-        /// </summary>
-        /// <param name="user">ScimUser user</param>
-        /// <returns>ScimUser</returns>
-        Task<ScimUser> PatchUser(ScimUser user);
     }
 }
