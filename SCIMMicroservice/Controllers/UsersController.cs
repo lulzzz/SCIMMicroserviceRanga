@@ -69,7 +69,7 @@ namespace ScimMicroservice.Controllers
             try
             {
                 var user = await userService.CreateUser(userDto);
-                return Created(Request.Host.Value + "/api/user/" + user.Id, user);
+                return Created(Request.Host.Value + "/api/users/" + user.Id, user);
             }
             catch(Exception ex)
             {

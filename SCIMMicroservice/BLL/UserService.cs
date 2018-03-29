@@ -3,7 +3,6 @@ using ScimMicroservice.BLL.Interfaces;
 using ScimMicroservice.DLL;
 using ScimMicroservice.DLL.Models;
 using ScimMicroservice.Models;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
