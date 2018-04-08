@@ -21,5 +21,11 @@
             Work,
             Mobile
         }
+
+        public enum SortOrder
+        {
+            Ascending,
+            Descending
+        }
     }
 }

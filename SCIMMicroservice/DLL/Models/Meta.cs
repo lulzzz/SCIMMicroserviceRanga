@@ -7,6 +7,8 @@ namespace ScimMicroservice.DLL.Models
 {
     public class Meta
     {
+        public Meta() { }
+
         public Meta(ResourceType resourceType)
         {
             ResourceType = resourceType;

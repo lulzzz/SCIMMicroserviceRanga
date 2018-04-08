@@ -13,7 +13,7 @@ namespace ScimMicroservice.Controllers
     [ApiVersion("1.0")]
     [Produces("application/json")]
     [Route("api/v{version:apiVersion}/[controller]")]
-    public class UsersController : Controller
+    public class UsersController : BaseController
     {
         private IUserService userService;     
         public const string RetrieveUserRouteName = @"Users";
@@ -79,7 +79,7 @@ namespace ScimMicroservice.Controllers
 
         [Authorize]
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery] ScimQueryOptions options)
         {
             try
             {
@@ -251,11 +251,6 @@ namespace ScimMicroservice.Controllers
 
                 var pachedUser = await userService.UpdateUser(user);
 
-                foreach(var schema in pachedUser.Schemas)
-                {
-                    schema.Replace("ResourceType", "user");
-                }
-
                 AddLocationHeader("users", userId.ToString());
                 return Ok(pachedUser);
             }
@@ -267,18 +262,6 @@ namespace ScimMicroservice.Controllers
             {
                 return BadRequest(ex.InnerException.StackTrace);
             }
-        }
-
-        private void AddLocationHeader(string route, string routevalue = null)
-        {
-            var locationHeader =  Request.Host + "/api/" + route;
-
-            if (!string.IsNullOrWhiteSpace(routevalue))
-            {
-                locationHeader = locationHeader + "/" + routevalue;
-            }
-
-            Response.Headers.Add("Location", locationHeader);
         }
     }
 }

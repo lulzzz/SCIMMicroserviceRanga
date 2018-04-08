@@ -15,9 +15,11 @@ namespace ScimMicroservice.DLL.Models
 
         public int Id { get; set; }
 
-        public int NameId { get; set; }
+        public int? NameId { get; set; }
 
-        public int MetaId { get; set; }
+        public int? MetaId { get; set; }
+
+        public int? MailingAddressId { get; set; }
 
         public string Username { get; set; }
 

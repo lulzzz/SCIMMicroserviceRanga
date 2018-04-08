@@ -17,7 +17,7 @@ namespace ScimMicroservice.Models
              * the endpoint "/Users" will set "resourceType" to "User", and
              * "/Groups" will set "resourceType" to "Group".
              */
-            base.Meta = new ScimMeta(ResourceType.User);
+            base.Meta = new ScimMeta("User");
         }
 
         //[JsonProperty("id")]

@@ -9,10 +9,14 @@ namespace ScimMicroservice.DLL.Models
         [Key]
         public int Id { get; set; }
 
+        public int UserId { get; set; }
+
         public EmailType Type { get; set; }
 
         public bool Primary { get; set; }
 
         public string Value { get; set; }
+
+        public virtual User User { get; set; }
     }
 }

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ScimMicroservice.DLL.Models;
 using ScimMicroservice.Exceptions;
+using ScimMicroservice.Models;
 using static ScimMicroservice.DLL.Models.Enums;
 
 namespace ScimMicroservice.DLL.Interfaces
@@ -13,10 +15,12 @@ namespace ScimMicroservice.DLL.Interfaces
     public class UserRepository : IUserRepository
     {
         private SCIMContext dbContext;
+        private readonly ConcurrentDictionary<string, ScimUser> _Users;
 
         public UserRepository(SCIMContext dbContext)
         {
             this.dbContext = dbContext;
+            _Users = new ConcurrentDictionary<string, ScimUser>();
         }
 
         public bool AuthenticateUser(string userName, string password)
@@ -82,10 +86,17 @@ namespace ScimMicroservice.DLL.Interfaces
         /// <returns></returns>
         public async Task<List<User>> GetAllUsers()
         {
-            return await dbContext
+            var users = await dbContext
                 .Users
                 .ToAsyncEnumerable()
                 .ToList();
+
+            foreach(var user in users)
+            {
+                LoadUserData(user);
+            }
+
+            return users;
         }
 
         /// <summary>
@@ -102,6 +113,7 @@ namespace ScimMicroservice.DLL.Interfaces
                 throw new NotFoundException("User not found");
             }
 
+            LoadUserData(user);
             return user;
         }
 
@@ -191,7 +203,7 @@ namespace ScimMicroservice.DLL.Interfaces
 
             return true;
         }
-        
+
         private void SetName(User user, Name name)
         {
             if (user.Name != null && !string.IsNullOrWhiteSpace(user.Name.GivenName))
@@ -214,6 +226,18 @@ namespace ScimMicroservice.DLL.Interfaces
 
             if (user.Name != null && !string.IsNullOrWhiteSpace(user.Name.MiddleName))
                 name.MiddleName = user.Name.MiddleName;
+        }
+
+        private void LoadUserData(User user)
+        {
+            user.Meta = dbContext.Meta.Find(user.MetaId);
+
+            if(user.MailingAddressId.HasValue && user.MailingAddressId > 0)
+                user.MailingAddress = dbContext.MailingAddresses.Find(user.MailingAddressId);
+
+            user.Emails = dbContext.Emails.Where(e => e.UserId == user.Id).ToList();
+            user.Name = dbContext.Names.Find(user.NameId);
+            user.PhoneNumbers = dbContext.PhoneNumbers.Where(a => a.UserId == user.Id).ToList();
         }
     }
 }

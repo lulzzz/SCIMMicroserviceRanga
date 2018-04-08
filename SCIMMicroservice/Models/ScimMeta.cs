@@ -6,7 +6,7 @@ namespace ScimMicroservice.Models
 {
     public class ScimMeta
     {
-        public ScimMeta(ResourceType resourceType)
+        public ScimMeta(string resourceType)
         {
             this.ResourceType = resourceType;
         }
@@ -19,7 +19,7 @@ namespace ScimMicroservice.Models
         public int Id { get; set; }
 
         [JsonProperty("resourceType")]
-        public ResourceType ResourceType { get; }
+        public string ResourceType { get; }
 
         [JsonProperty("created")]
         public DateTime Created { get; set; }
@@ -32,5 +32,13 @@ namespace ScimMicroservice.Models
 
         [JsonProperty("version")]
         public string Version { get; set; }
+
+        public string VersionTest
+        {
+            get
+            {
+                return this.GetHashCode().ToString();
+            }
+        }
     }
 }

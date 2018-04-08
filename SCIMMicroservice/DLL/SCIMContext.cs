@@ -25,5 +25,9 @@ namespace ScimMicroservice.DLL
         public virtual DbSet<Meta> Meta { get; set; }
 
         public virtual DbSet<Email> Emails { get; set; }
+
+        public virtual DbSet<MailingAddress> MailingAddresses { get; set; }
+
+        public virtual DbSet<PhoneNumber> PhoneNumbers { get; set; }
     }
 }
